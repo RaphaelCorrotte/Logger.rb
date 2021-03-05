@@ -8,7 +8,8 @@ module Logger
   class Color
     attr_accessor :colors, :color, :text
     def initialize(text, color = 0)
-      @text = text.to_s
+      text = text.to_s
+      @text = text
       @color = color
       @colors = {
         # Texts
@@ -41,7 +42,11 @@ module Logger
     end
     # This returns the colorized text as a string
     def colorize
-      @colors[@color.to_i] + "\e[0m"
+      if @colors[@color.to_i]
+        @colors[@color.to_i] + "\e[0m"
+      else
+        "No color for #{@color.to_i}"
+      end
     end
     def rainbow
       r_text = []
