@@ -6,8 +6,9 @@
 
 module Logger
   class Color
-    attr_accessor :colors, :color
+    attr_accessor :colors, :color, :text
     def initialize(text, color = 0)
+      @text = text.to_s
       @color = color
       @colors = {
         # Texts
@@ -41,6 +42,13 @@ module Logger
     # This returns the colorized text as a string
     def colorize
       @colors[@color.to_i] + "\e[0m"
+    end
+    def rainbow
+      r_text = []
+      @text.length.times do |num|
+        r_text << Color.new(@text[num], rand(9)).colorize
+      end
+      r_text.join
     end
   end
 end
