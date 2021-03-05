@@ -5,7 +5,7 @@
 
 
 module Logger
-  class Color < String
+  class Color
     attr_accessor :colors, :color
     def initialize(text, color = 0)
       @color = color
@@ -26,11 +26,21 @@ module Logger
         11 => "\e[41m#{text}", # bg:Red
         12 => "\e[42m#{text}", # bg:Green
         13 => "\e[43m#{text}", # bg:Yellow
+        14 => "\e[44m#{text}", # bg:Blue
+        15 => "\e[45m#{text}", # bg:Magenta
+        16 => "\e[46m#{text}", # bg:Cyan
+        17 => "\e[100m#{text}", # bg:Gray
+        # Styles
+        18 => "\e[1m#{text}", # Bold
+        19 => "\e[2m#{text}", # Dim
+        20 => "\e[4m#{text}", # Underlined
+        21 => "\e[5m#{text}", # Blink
+        22 => "\e[7m#{text}" # Inverted
       }
     end
     # This returns the colorized text as a string
-    def puts
-      @colors[@color.to_i]
+    def colorize
+      @colors[@color.to_i] + "\e[0m"
     end
   end
 end
