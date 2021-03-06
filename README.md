@@ -22,8 +22,21 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+- Use just the colors
+```ruby
+require "Logger"
 
+puts Logger::Color.new("Hello World", "magenta").colorize
+puts "Hello World".red
+```
+
+- Use the writers
+```ruby
+require "Logger"
+
+Logger.warn("Be careful")
+Logger.good("Congratulation")
+```
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

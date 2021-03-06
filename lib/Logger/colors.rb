@@ -3,49 +3,45 @@
 # Default colors is 0 ( white )
 =end
 
+# "\033[#{bgColor_code};#{color_code}m#{text}\033[0m"
 
 module Logger
   class Color
-    attr_accessor :colors, :color, :text
-    def initialize(text, color = 0)
+    attr_reader :colors, :color, :text
+    def initialize(text, color = "default")
       text = text.to_s
       @text = text
       @color = color
       @colors = {
         # Texts
-        0 => "\e[39m#{text}", # White
-        1 => "\e[30m#{text}", # Black
-        2 => "\e[31m#{text}", # Red
-        3 => "\e[32m#{text}", # Green
-        4 => "\e[33m#{text}", # Brown
-        5 => "\e[34m#{text}", # Blue
-        6 => "\e[35m#{text}", # Magenta
-        7 => "\e[36m#{text}", # Cyan
-        8 => "\e[37m#{text}", # Gray
-        9 => "\e[33m#{text}", # Yellow
+        "default" => "\e[38m#{text}", # Default
+        "white" => "\e[39m#{text}", # White
+        "black" => "\e[30m#{text}", # Black
+        "red" => "\e[31m#{text}", # Red
+        "green" => "\e[32m#{text}", # Green
+        "brown" => "\e[33m#{text}", # Brown
+        "blue" => "\e[34m#{text}", # Blue
+        "magenta" => "\e[35m#{text}", # Magenta
+        "cyan" => "\e[36m#{text}", # Cyan
+        "gray" => "\e[37m#{text}", # Gray
+        "yellow" => "\e[33m#{text}", # Yellow
         # Backgrounds
-        10 => "\e[40m#{text}", # bg:Black
-        11 => "\e[41m#{text}", # bg:Red
-        12 => "\e[42m#{text}", # bg:Green
-        13 => "\e[43m#{text}", # bg:Yellow
-        14 => "\e[44m#{text}", # bg:Blue
-        15 => "\e[45m#{text}", # bg:Magenta
-        16 => "\e[46m#{text}", # bg:Cyan
-        17 => "\e[100m#{text}", # bg:Gray
-        # Styles
-        18 => "\e[1m#{text}", # Bold
-        19 => "\e[2m#{text}", # Dim
-        20 => "\e[4m#{text}", # Underlined
-        21 => "\e[5m#{text}", # Blink
-        22 => "\e[7m#{text}" # Inverted
+        "bg_black" => "\e[40m#{text}", # bg:Black
+        "bg_red" => "\e[41m#{text}", # bg:Red
+        "bg_green" => "\e[42m#{text}", # bg:Green
+        "bg_yellow" => "\e[43m#{text}", # bg:Yellow
+        "bg_blue" => "\e[44m#{text}", # bg:Blue
+        "bg_magenta" => "\e[45m#{text}", # bg:Magenta
+        "bg_cyan" => "\e[46m#{text}", # bg:Cyan
+        "bg_gray" => "\e[100m#{text}", # bg:Gray
       }
     end
     # This returns the colorized text as a string
     def colorize
-      if @colors[@color.to_i]
-        @colors[@color.to_i] + "\e[0m"
+      if @colors[@color]
+        @colors[@color] + "\e[0m"
       else
-        "No color for #{@color.to_i}"
+        "No color for #{@color}"
       end
     end
     def rainbow
@@ -57,3 +53,44 @@ module Logger
     end
   end
 end
+
+
+=begin
+:default => "38",
+  :black => "30",
+  :red => "31",
+  :green => "32",
+  :brown => "33",
+  :blue => "34",
+  :purple => "35",
+  :cyan => "36",
+  :gray => "37",
+  :dark_gray => "1;30",
+  :light_red => "1;31",
+  :light_green => "1;32",
+  :yellow => "1;33",
+  :light_blue => "1;34",
+  :light_purple => "1;35",
+  :light_cyan => "1;36",
+  :white => "1;37"
+}
+@bg_colors = {
+  :default => "0",
+  :black => "40",
+  :red => "41",
+  :green => "42",
+  :brown => "43",
+  :blue => "44",
+  :purple => "45",
+  :cyan => "46",
+  :gray => "47",
+  :dark_gray => "100",
+  :light_red => "101",
+  :light_green => "102",
+  :yellow => "103",
+  :light_blue => "104",
+  :light_purple => "105",
+  :light_cyan => "106",
+  :white => "107"
+}
+=end
