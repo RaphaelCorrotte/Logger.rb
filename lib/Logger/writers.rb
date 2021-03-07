@@ -3,21 +3,33 @@ require_relative "colors"
 
 module Logger
   class Writer
-    def self.error(text)
-      mode = Logger::MODES[:error]
-      puts Logger::Color.new("[#{mode[:long]}]: #{text}", "#{mode[:color]}").colorize
+    private
+    def self.set_color(color, text)
+      Logger::Color.new(text, "#{color}").colorize
     end
-    def self.info(text)
-      mode = Logger::MODES[:info]
-      puts Logger::Color.new("[#{mode[:long]}]: #{text}", "#{mode[:color]}").colorize
+    private
+    def self.log(text, mode, title)
+      color = Logger::MODES[:"#{mode}"]
+      puts "#{Writer.set_color("magenta", title.to_s.upcase)}: #{Writer.set_color("#{color}", text)}"
     end
-    def self.warn(text)
-      mode = Logger::MODES[:warn]
-      puts Logger::Color.new("[#{mode[:long]}]: #{text}", "#{mode[:color]}").colorize
+    public
+    def self.info(text, title = "info")
+      Writer.log(text, "info", title)
     end
-    def self.good(text)
-      mode = Logger::MODES[:good]
-      puts Logger::Color.new("[#{mode[:long]}]: #{text}", "#{mode[:color]}").colorize
+    def self.warn(text, title = "warn")
+      Writer.log(text, "warn", title)
+    end
+    def self.error(text, title = "error")
+      Writer.log(text, "error", title)
+    end
+    def self.comment(text, title = "comment")
+      Writer.log(text, "comment", title)
+    end
+    def self.debug(text, title = "debug")
+      Writer.log(text, "debug", title)
+    end
+    def self.event(text, title = "event")
+      Writer.log(text, "event", title)
     end
   end
 end
